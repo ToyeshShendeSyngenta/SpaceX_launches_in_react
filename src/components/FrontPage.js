@@ -1,4 +1,4 @@
-// FrontPage.js
+
 
 import "./frontPage.css";
 import React, { useEffect, useState } from 'react';
