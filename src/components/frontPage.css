@@ -20,7 +20,7 @@
 }
 
 .cards {
-  width: 75%;
+  width: 78%;
   display: flex;
   flex-wrap: wrap;
 }
@@ -38,7 +38,7 @@
 
 .card img {
   max-width: 100%;
-  height: auto;
+  height: 200px;
   border-radius: 8px;
 }
 
@@ -140,4 +140,21 @@ input {
 input:focus {
   border-color: #007bff;
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+@media screen and (max-width: 700px){
+  .main {
+    flex-direction: column;
+    justify-content: center
+    
+  }
+  
+  .filters {
+    
+    width: fit-content;
+  }
+  
+  .cards {
+    flex-direction: column;
+  }
 }
