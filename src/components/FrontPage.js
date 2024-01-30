@@ -30,7 +30,7 @@ const FrontPage = () => {
       params += `&launch_success=${launchSuccess}`;
     }
 
-    if (landSuccess != null) {
+    if (landSuccess !== null) {
       params += `&land_success=${landSuccess}`;
     }
 
@@ -99,13 +99,13 @@ const FrontPage = () => {
             <div className="filter-subsection1">
               <h4>Successful Launch</h4>
               <Button
-                className={filters.launchSuccess && "active"}
+                className={filters.launchSuccess? "active":""}
                 onClick={() => handleFilterChange("launchSuccess", true)}
               >
                 <p>True</p>
               </Button>
               <Button
-                className={filters.launchSuccess === false && "active"}
+                className={filters.launchSuccess===false? "active":""}
                 onClick={() => handleFilterChange("launchSuccess", false)}
               >
                 <p>False</p>
@@ -114,13 +114,13 @@ const FrontPage = () => {
             <div className="filter-subsection1">
               <h4>Successful Landing</h4>
               <Button
-                className={filters.landSuccess && "active"}
+                className={filters.landSuccess ?  "active":""}
                 onClick={() => handleFilterChange("landSuccess", true)}
               >
                 <p>True</p>
               </Button>
               <Button
-                className={filters.landSuccess === false && "active"}
+                className={filters.landSuccess===false ? "active":""}
                 onClick={() => handleFilterChange("landSuccess", false)}
               >
                 <p>False</p>
@@ -134,7 +134,7 @@ const FrontPage = () => {
               (launch) =>
                 !search ||
                 launch.mission_name
-                  ?.toLowerCase()
+                  .toLowerCase()
                   .includes(search.toLowerCase())
             )
             .map((launch) => (
@@ -142,6 +142,10 @@ const FrontPage = () => {
                 <img
                   src={launch.links.mission_patch_small}
                   alt={launch.mission_name}
+                  onError={(e) => {
+                    e.target.src =
+                      "https://images2.imgbox.com/6f/c0/D3Owbmpo_o.png";
+                  }}
                 />
                 <h3 className="heading">{`${launch.mission_name} #${launch.flight_number}`}</h3>
                 <p>
@@ -151,12 +155,13 @@ const FrontPage = () => {
                   <b>Launch Year: </b> {launch.launch_year}
                 </p>
                 <p>
-                  <b>Launch Success: </b>{" "}
+                  <b>Launch Success: </b>
                   {launch.launch_success ? "True" : "False"}
                 </p>
                 <p>
                   <b>Successful Landing : </b>
-                  {launch.launch_landing ? "True" : "False"}
+                  
+                  {launch.rocket?.first_stage?.cores[0]?.land_success ? "True" : "False"}
                 </p>
               </div>
             ))}
