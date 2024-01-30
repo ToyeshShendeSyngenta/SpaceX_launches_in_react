@@ -1,5 +1,6 @@
 import "./frontPage.css";
 import React, { useEffect, useState } from "react";
+import { Button, Input } from "antd";
 import axios from "axios";
 
 const FrontPage = () => {
@@ -29,7 +30,7 @@ const FrontPage = () => {
       params += `&launch_success=${launchSuccess}`;
     }
 
-    if (landSuccess !== null) {
+    if (landSuccess != null) {
       params += `&land_success=${landSuccess}`;
     }
 
@@ -67,13 +68,13 @@ const FrontPage = () => {
     ];
 
     return years.map((year) => (
-      <button
+      <Button
         key={year}
         className={filters.launchYear === year ? "active-tag" : "tag"}
         onClick={() => handleFilterChange("launchYear", year)}
       >
-        {year}
-      </button>
+        <p>{year}</p>
+      </Button>
     ));
   };
 
@@ -86,10 +87,10 @@ const FrontPage = () => {
           <div className="filter-section">
             <div className="filter-subsection">
               <h4>Name Search</h4>
-              <input
+              <Input
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Search"
-              ></input>
+              ></Input>
             </div>
             <div className="filter-subsection">
               <h4>Launch Year</h4>
@@ -97,33 +98,33 @@ const FrontPage = () => {
             </div>
             <div className="filter-subsection1">
               <h4>Successful Launch</h4>
-              <button
-                className={filters.launchSuccess === true ? "active" : ""}
+              <Button
+                className={filters.launchSuccess && "active"}
                 onClick={() => handleFilterChange("launchSuccess", true)}
               >
-                True
-              </button>
-              <button
-                className={filters.launchSuccess === false ? "active" : ""}
+                <p>True</p>
+              </Button>
+              <Button
+                className={filters.launchSuccess === false && "active"}
                 onClick={() => handleFilterChange("launchSuccess", false)}
               >
-                False
-              </button>
+                <p>False</p>
+              </Button>
             </div>
             <div className="filter-subsection1">
               <h4>Successful Landing</h4>
-              <button
-                className={filters.landSuccess === true ? "active" : ""}
+              <Button
+                className={filters.landSuccess && "active"}
                 onClick={() => handleFilterChange("landSuccess", true)}
               >
-                True
-              </button>
-              <button
-                className={filters.landSuccess === false ? "active" : ""}
+                <p>True</p>
+              </Button>
+              <Button
+                className={filters.landSuccess === false && "active"}
                 onClick={() => handleFilterChange("landSuccess", false)}
               >
-                False
-              </button>
+                <p>False</p>
+              </Button>
             </div>
           </div>
         </div>
@@ -131,8 +132,10 @@ const FrontPage = () => {
           {launchData
             .filter(
               (launch) =>
-                search === "" ||
-                launch.mission_name.toLowerCase().includes(search.toLowerCase())
+                !search ||
+                launch.mission_name
+                  ?.toLowerCase()
+                  .includes(search.toLowerCase())
             )
             .map((launch) => (
               <div key={launch.flight_number} className="card">
