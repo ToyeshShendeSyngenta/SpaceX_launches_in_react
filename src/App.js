@@ -1,12 +1,17 @@
-
-import './App.css';
+import React from 'react';
 import FrontPage from './components/FrontPage';
+import { ApiProvider } from './components/ApiProvider';
+
 function App() {
   return (
-    <div className="App">
-      <FrontPage/>
-    </div>
+    
+    <ApiProvider>
+    <FrontPage />
+ 
+  </ApiProvider>
+   
   );
 }
 
 export default App;
+

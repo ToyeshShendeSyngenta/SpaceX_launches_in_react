@@ -22,6 +22,7 @@
 .cards {
   width: 78%;
   display: flex;
+  
   flex-wrap: wrap;
 }
 
@@ -34,6 +35,10 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   background-color: #fff;
   text-align: center;
+  
+  width: 220px;
+  height: 350px;
+  
 }
 
 .card img {
@@ -160,6 +165,7 @@ Input:focus {
   
   .cards {
     flex-direction: column;
+    align-self:center;
   }
 }
 

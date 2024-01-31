@@ -1,52 +1,13 @@
 import "./frontPage.css";
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import { Button, Input } from "antd";
-import axios from "axios";
+import { useApi } from "./ApiProvider";
 
 const FrontPage = () => {
-  const [launchData, setLaunchData] = useState([]);
-  const [filters, setFilters] = useState({
-    launchSuccess: null,
-    landSuccess: null,
-    launchYear: "",
-  });
+  const { launchData, filters, handleFilterChange } = useApi();
+ 
   const [search, setSearch] = useState("");
   console.log(search);
-
-  useEffect(() => {
-    const apiUrl = `https://api.spaceXdata.com/v3/launches?limit=100${getFilterParams()}`;
-
-    axios
-      .get(apiUrl)
-      .then((response) => setLaunchData(response.data))
-      .catch((error) => console.error("Error fetching data: ", error));
-  }, [filters]);
-
-  const getFilterParams = () => {
-    const { launchSuccess, landSuccess, launchYear } = filters;
-    let params = "";
-
-    if (launchSuccess !== null) {
-      params += `&launch_success=${launchSuccess}`;
-    }
-
-    if (landSuccess !== null) {
-      params += `&land_success=${landSuccess}`;
-    }
-
-    if (launchYear !== "") {
-      params += `&launch_year=${launchYear}`;
-    }
-    console.log(params);
-    return params;
-  };
-
-  const handleFilterChange = (filterType, value) => {
-    setFilters((prevFilters) => ({
-      ...prevFilters,
-      [filterType]: value,
-    }));
-  };
 
   const renderYearTags = () => {
     const years = [
