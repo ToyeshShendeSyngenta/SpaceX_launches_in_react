@@ -1,4 +1,3 @@
-// App.js
 import React from 'react';
 import FrontPage from './components/FrontPage';
 import { ApiProvider } from './components/ApiProvider';
