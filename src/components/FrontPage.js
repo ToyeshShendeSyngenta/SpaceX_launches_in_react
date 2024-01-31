@@ -89,7 +89,7 @@ const FrontPage = () => {
             </div>
           </div>
         </div>
-        <div className="cards">
+        <div className="cards" data-testid="cards-container">
           {launchData
             .filter(
               (launch) =>
