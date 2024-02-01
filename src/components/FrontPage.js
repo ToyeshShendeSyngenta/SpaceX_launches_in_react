@@ -99,7 +99,7 @@ const FrontPage = () => {
                   .includes(search.toLowerCase())
             )
             .map((launch) => (
-              <div key={launch.flight_number} className="card">
+              <div key={launch.flight_number}  className="card">
                 <img
                   src={launch.links.mission_patch_small}
                   alt={launch.mission_name}
