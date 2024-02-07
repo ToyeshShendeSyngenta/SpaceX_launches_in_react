@@ -1,7 +1,7 @@
 import "./frontPage.css";
 import React, {  useState } from "react";
 import { Button, Input } from "antd";
-import { useApi } from "./ApiProvider";
+import { useApi } from "../api/ApiProvider";
 
 const FrontPage = () => {
   const { launchData, filters, handleFilterChange } = useApi();
@@ -34,13 +34,13 @@ const FrontPage = () => {
         className={filters.launchYear === year ? "active-tag" : "tag"}
         onClick={() => handleFilterChange("launchYear", year)}
       >
-        <p>{year}</p>
+      {year}
       </Button>
     ));
   };
 
   return (
-    <div>
+    <div data-testid="front-page">
       <h2>SpaceX Launch Programs</h2>
       <div className="main">
         <div className="filters">
@@ -60,31 +60,33 @@ const FrontPage = () => {
             <div className="filter-subsection1">
               <h4>Successful Launch</h4>
               <Button
+                data-testid="launchbutton"
                 className={filters.launchSuccess? "active":""}
                 onClick={() => handleFilterChange("launchSuccess", true)}
               >
-                <p>True</p>
+                True
               </Button>
               <Button
                 className={filters.launchSuccess===false? "active":""}
                 onClick={() => handleFilterChange("launchSuccess", false)}
               >
-                <p>False</p>
+                False
               </Button>
             </div>
             <div className="filter-subsection1">
               <h4>Successful Landing</h4>
               <Button
+                data-testid="landbutton"
                 className={filters.landSuccess ?  "active":""}
                 onClick={() => handleFilterChange("landSuccess", true)}
               >
-                <p>True</p>
+                True
               </Button>
               <Button
                 className={filters.landSuccess===false ? "active":""}
                 onClick={() => handleFilterChange("landSuccess", false)}
               >
-                <p>False</p>
+                False
               </Button>
             </div>
           </div>
@@ -99,7 +101,7 @@ const FrontPage = () => {
                   .includes(search.toLowerCase())
             )
             .map((launch) => (
-              <div key={launch.flight_number}  className="card">
+              <div key={launch.flight_number} data-testid="cardtest"  className="card">
                 <img
                   src={launch.links.mission_patch_small}
                   alt={launch.mission_name}

@@ -64,75 +64,76 @@ b {
 
 
 .filters {
-  margin-top: 10px;
-  border-radius: 8px;
+  background-color: #f0f2f5;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 20px;
 }
 
 .filters h4 {
   margin-bottom: 10px;
-  background-color: white;
 }
 
 .filter-section {
-  background-color: white;
-  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .filter-subsection,
 .filter-subsection1 {
-  margin: 0 10px;
-  background-color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 
-
-.filter-subsection1 select,
-.filter-subsection1 Button {
-  margin-top: 5px;
-  background-color: #c5e09b;
-}
-
-.filter-subsection Button,
-.filter-subsection1 Button {
-  padding: 5px 10px;
-  cursor: pointer;
-}
-
-.filter-subsection Button.active ,
-.filter-subsection1 Button.active ,
-.filter-subsection Button.active p ,
-.filter-subsection1 Button.active p{
-  background-color: #7cba01;
-  color: black;
-}
-
-
-.filter-subsection1 Button {
-  margin-left: 10px;
-  
+.filter-subsection h4,
+.filter-subsection1 h4 {
   margin-bottom: 5px;
-
 }
 
+
+
+
+/* Tags (year buttons) */
 .tags {
   display: flex;
   flex-wrap: wrap;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  background-color: white;
+  gap: 5px;
 }
 
-.active-tag,.active-tag p {
-  background-color: #7cba01;
-  color: black;
+.tag,
+.active-tag {
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.active-tag {
+  background-color: #7cba01; /* Active button color */
 }
 
 .tag {
-  background-color: #c5e09b;
-  color: black;
+  background-color: #c5e09b; /* Normal button color */
+}
+
+/* Filter buttons (True/False) */
+.filter-subsection1 button {
   padding: 5px 10px;
-  margin: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
   cursor: pointer;
 }
+
+.filter-subsection1 button.active {
+  background-color: #7cba01; /* Active button color */
+}
+
+.filter-subsection1 button {
+  background-color: #c5e09b; /* Normal button color */
+}
+
 
 
 Input {
@@ -169,7 +170,3 @@ Input:focus {
   }
 }
 
-p{
-  color: black;
-  background-color: #c5e09b;
-}

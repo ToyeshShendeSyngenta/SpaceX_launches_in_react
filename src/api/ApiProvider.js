@@ -15,8 +15,7 @@ export const ApiProvider = ({ children }) => {
     const apiUrl = `https://api.spaceXdata.com/v3/launches?limit=100${getFilterParams()}`;
 
     axios
-      .get(apiUrl)
-      .then((response) => setLaunchData(response.data))
+      .get(apiUrl).then((response) => setLaunchData(response.data))
       .catch((error) => console.error("Error fetching data: ", error));
   }, [filters]);
 
@@ -53,7 +52,8 @@ export const ApiProvider = ({ children }) => {
   };
 
   return (
-    <ApiContext.Provider value={apiContextValue}>{children}</ApiContext.Provider>
+
+    <ApiContext.Provider value={apiContextValue}  data-testid="apiprovider">{children}</ApiContext.Provider>
   );
 };
 
