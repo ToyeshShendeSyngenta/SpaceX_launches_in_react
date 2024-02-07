@@ -1,89 +1,94 @@
 import React from 'react';
-import { render, waitFor } from '@testing-library/react';
+import { render, waitFor ,fireEvent,act} from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import axios from 'axios';
-import { ApiProvider } from './ApiProvider';
+import { ApiProvider, useApi } from '../api/ApiProvider';
 
-jest.mock('./ApiProvider', () => ({
-  ...jest.requireActual('./ApiProvider'),
-  useApi: jest.fn(),
-}));
 
-describe('ApiProvider', () => {
-  beforeEach(() => {
-    jest.resetAllMocks(); 
+jest.mock('axios');
+
+const mockData = [
+  {
+    flight_number: 1,
+    mission_name: 'Mission 1',
+    mission_id: 'ABC123',
+    launch_year: '2019',
+    launch_success: true,
+    rocket: {
+      first_stage: {
+        cores: [
+          {
+            land_success: true,
+          },
+        ],
+      },
+    },
+    links: {
+      mission_patch_small: 'https://images2.imgbox.com/6f/c0/D3Owbmpo_o.png',
+    },
+  },
+  {
+    flight_number: 2,
+    mission_name: 'Mission 2',
+    mission_id: 'XYZ789',
+    launch_year: '2020',
+    launch_success: false,
+    rocket: {
+      first_stage: {
+        cores: [
+          {
+            land_success: false,
+          },
+        ],
+      },
+    },
+    links: {
+      mission_patch_small: 'https://images2.imgbox.com/6f/c0/D3Owbmpo_o.png',
+    },
+  },
+];
+
+describe('ApiProvider Component', () => {
+  afterEach(() => {
+    jest.restoreAllMocks();
   });
 
-  it('should fetch launch data with default filters', async () => {
-    const mockUseApi = jest.fn().mockReturnValue({
-      launchData: [],
-      filters: { launchYear: '', launchSuccess: null, landSuccess: null },
-      handleFilterChange: jest.fn(),
-    });
+  it('fetches and provides launch data through context', async () => {
+    jest.spyOn(axios, 'get').mockResolvedValue({ data: mockData });
+    let renderedData;
+    function TestComponent() {
+      const { launchData } = useApi();
+      renderedData = launchData;
+      return null;
+    }
 
-    ApiProvider.useApi = mockUseApi;
-
-    render(<ApiProvider><div /></ApiProvider>);
+    render(
+      <ApiProvider>
+        <TestComponent />
+      </ApiProvider>
+    );
 
     await waitFor(() => {
-      expect(mockUseApi().handleFilterChange).toHaveBeenCalledWith(
-        'launchYear',
-        ''
-      );
+      expect(renderedData).toEqual(mockData);
     });
   });
 
-  it('should fetch launch data with updated filters', async () => {
-    const mockUseApi = jest.fn().mockReturnValue({
-      launchData: [],
-      filters: { launchYear: '2021', launchSuccess: true, landSuccess: true },
-      handleFilterChange: jest.fn(),
-    });
+  it('handles API request error and logs it to the console', async () => {
+    jest.spyOn(axios, 'get').mockRejectedValue(new Error('Fake error'));
+    let errorLogged = false;
+    console.error = () => {
+      errorLogged = true;
+    };
 
-    ApiProvider.useApi = mockUseApi;
-
-    render(<ApiProvider><div /></ApiProvider>);
+    render(
+      <ApiProvider>
+        <div />
+      </ApiProvider>
+    );
 
     await waitFor(() => {
-      expect(mockUseApi().handleFilterChange).toHaveBeenCalledWith(
-        'launchYear',
-        '2021'
-      );
-      expect(mockUseApi().handleFilterChange).toHaveBeenCalledWith(
-        'launchSuccess',
-        true
-      );
-      expect(mockUseApi().handleFilterChange).toHaveBeenCalledWith(
-        'landSuccess',
-        true
-      );
+      expect(errorLogged).toBeTruthy();
     });
   });
-
-  it('should fetch launch data when filters are reset', async () => {
-    const mockUseApi = jest.fn().mockReturnValue({
-      launchData: [],
-      filters: { launchYear: '2021', launchSuccess: true, landSuccess: true },
-      handleFilterChange: jest.fn(),
-    });
-
-    ApiProvider.useApi = mockUseApi;
-
-    render(<ApiProvider><div /></ApiProvider>);
-
-    await waitFor(() => {
-      expect(mockUseApi().handleFilterChange).toHaveBeenCalledWith(
-        'launchYear',
-        ''
-      );
-      expect(mockUseApi().handleFilterChange).toHaveBeenCalledWith(
-        'launchSuccess',
-        null
-      );
-      expect(mockUseApi().handleFilterChange).toHaveBeenCalledWith(
-        'landSuccess',
-        null
-      );
-    });
-  });
+  
 });

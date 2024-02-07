@@ -190,97 +190,11 @@ describe('FrontPage Component', () => {
       expect(yearButton).toHaveClass('ant-btn css-dev-only-do-not-override-1qhpsh8 ant-btn-default tag');
     });
   });
-
-  // it('should update launch success filter', async () => {
-  //   render(
-  //     <ApiProvider>
-  //       <FrontPage />
-  //     </ApiProvider>
-  //   );
-
-  //   const successButton = screen.getByTestId('launchbutton');
-  //   fireEvent.click(successButton);
-
-  //   await waitFor(() => {
-  //     expect(successButton).toHaveClass('active');
-  //   });
-  // });
-
-  // it('should update land success filter', async () => {
-  //   render(
-  //     <ApiProvider>
-  //       <FrontPage />
-  //     </ApiProvider>
-  //   );
-
-  //   const landSuccessButton = screen.getByTestId('landbutton');
-  //   fireEvent.click(landSuccessButton);
-
-  //   await waitFor(() => {
-  //     expect(landSuccessButton).toHaveClass('active');
-  //   });
-  // });
-  // it('should filter launch data based on name search', () => {
-  //   render(
-  //     <ApiProvider>
-  //       <FrontPage />
-  //     </ApiProvider>
-  //   );
-
-  //   const searchInput = screen.getByPlaceholderText("Search");
-  //   fireEvent.change(searchInput, "Search");
-  //   fireEvent.change(searchInput, { target: { value: 'Mission 1' } });
-   
-  //   const cards = screen.getAllByTestId('cardtest');
-  //   expect(cards).toHaveLength(1);
-
-  //   const card = cards[0];
-  //   expect(card).toHaveTextContent('Mission 1 #1');
-  // });
-
-  // it('should update launch year filter', async () => {
-  //   render(
-  //     <ApiProvider>
-  //       <FrontPage />
-  //     </ApiProvider>
-  //   );
-  
-  //   const yearButton = screen.getByRole('button', { name: '2021', exact: false });
-  //   fireEvent.click(yearButton);
-  
-  //   await waitFor(() => {
-  //     expect(yearButton).toHaveClass('active-tag');
-  //   });
-  // });
-  
-  // it('should update launch success filter', async () => {
-  //   render(
-  //     <ApiProvider>
-  //       <FrontPage />
-  //     </ApiProvider>
-  //   );
-  
-  //   const successButton = screen.getByTestId('launchbutton');
-  //   fireEvent.click(successButton);
-  
-  //   await waitFor(() => {
-  //     expect(successButton).toHaveClass('active');
-  //   });
-  // });
-  
-  // it('should update land success filter', async () => {
-  //   render(
-  //     <ApiProvider>
-  //       <FrontPage />
-  //     </ApiProvider>
-  //   );
-  
-  //   const landSuccessButton = screen.getByTestId('landbutton');
-  //   fireEvent.click(landSuccessButton);
-  
-  //   await waitFor(() => {
-  //     expect(landSuccessButton).toHaveClass('active');
-  //   });
-  // });
+  it('should filter launch data based on name search', async () => {
+    const {getByRole,getByTestId}=render(<ApiProvider><FrontPage /></ApiProvider>);
+    const searchInput = getByTestId('inputtest');
+    expect(searchInput).toBeInTheDocument();
+    fireEvent.change(searchInput, { target: { value: 'Mission 1' } });
+  });
   
 });

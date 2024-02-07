@@ -48,7 +48,8 @@ const FrontPage = () => {
           <div className="filter-section">
             <div className="filter-subsection">
               <h4>Name Search</h4>
-              <Input
+              <Input 
+                data-testid='inputtest'
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Search"
               ></Input>
