@@ -91,15 +91,11 @@ b {
 .filter-subsection1 h4 {
   margin-bottom: 5px;
 }
-
-
-
-
-/* Tags (year buttons) */
 .tags {
   display: flex;
   flex-wrap: wrap;
   gap: 5px;
+  
 }
 
 .tag,
@@ -111,14 +107,14 @@ b {
 }
 
 .active-tag {
-  background-color: #7cba01; /* Active button color */
+  background-color: #7cba01; 
 }
 
 .tag {
-  background-color: #c5e09b; /* Normal button color */
+  background-color: #c5e09b; 
 }
 
-/* Filter buttons (True/False) */
+
 .filter-subsection1 button {
   padding: 5px 10px;
   border: 1px solid #ccc;
@@ -127,14 +123,12 @@ b {
 }
 
 .filter-subsection1 button.active {
-  background-color: #7cba01; /* Active button color */
+  background-color: #7cba01 !important; 
 }
 
 .filter-subsection1 button {
-  background-color: #c5e09b; /* Normal button color */
+  background-color: #c5e09b !important; 
 }
-
-
 
 Input {
   padding: 10px;
@@ -145,7 +139,6 @@ Input {
   font-size: 16px;
   margin-bottom: 10px;
 }
-
 
 Input:focus {
   border-color: #007bff;

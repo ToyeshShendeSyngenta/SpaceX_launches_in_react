@@ -3,7 +3,7 @@ import React from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import { ApiProvider } from '../api/ApiProvider';
-import FrontPage from './FrontPage';
+// import FrontPage from './FrontPage';
 
 
 jest.mock('../api/ApiProvider', () => ({
