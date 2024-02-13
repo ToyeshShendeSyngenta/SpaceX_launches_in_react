@@ -1,11 +1,23 @@
 import "./frontPage.css";
 import React, {  useState } from "react";
 import { Button, Input } from "antd";
-import { useApi } from "./ApiProvider";
+import { useApi } from "../api/ApiProvider";
+import styled from 'styled-components';
+const CustomButton = styled(Button)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+  cursor: pointer;
+  backgroundColor:red
 
+  &:focus {
+    outline: none;
+  }
+`;
 const FrontPage = () => {
   const { launchData, filters, handleFilterChange } = useApi();
- 
+  
   const [search, setSearch] = useState("");
   console.log(search);
 
@@ -29,18 +41,18 @@ const FrontPage = () => {
     ];
 
     return years.map((year) => (
-      <Button
+      <CustomButton
         key={year}
         className={filters.launchYear === year ? "active-tag" : "tag"}
         onClick={() => handleFilterChange("launchYear", year)}
       >
-        <p>{year}</p>
-      </Button>
+      {year}
+      </CustomButton>
     ));
   };
 
   return (
-    <div>
+    <div data-testid="front-page">
       <h2>SpaceX Launch Programs</h2>
       <div className="main">
         <div className="filters">
@@ -48,7 +60,8 @@ const FrontPage = () => {
           <div className="filter-section">
             <div className="filter-subsection">
               <h4>Name Search</h4>
-              <Input
+              <Input 
+                data-testid='inputtest'
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Search"
               ></Input>
@@ -59,37 +72,40 @@ const FrontPage = () => {
             </div>
             <div className="filter-subsection1">
               <h4>Successful Launch</h4>
-              <Button
+              <CustomButton
+                data-testid="launchbutton"
                 className={filters.launchSuccess? "active":""}
                 onClick={() => handleFilterChange("launchSuccess", true)}
               >
-                <p>True</p>
-              </Button>
-              <Button
+                True
+              </CustomButton>
+              <CustomButton
+               
                 className={filters.launchSuccess===false? "active":""}
                 onClick={() => handleFilterChange("launchSuccess", false)}
               >
-                <p>False</p>
-              </Button>
+                False
+              </CustomButton>
             </div>
             <div className="filter-subsection1">
               <h4>Successful Landing</h4>
-              <Button
+              <CustomButton
+                data-testid="landbutton"
                 className={filters.landSuccess ?  "active":""}
                 onClick={() => handleFilterChange("landSuccess", true)}
               >
-                <p>True</p>
-              </Button>
-              <Button
+                True
+              </CustomButton>
+              <CustomButton
                 className={filters.landSuccess===false ? "active":""}
                 onClick={() => handleFilterChange("landSuccess", false)}
               >
-                <p>False</p>
-              </Button>
+                False
+              </CustomButton>
             </div>
           </div>
         </div>
-        <div className="cards">
+        <div className="cards" data-testid="cards-container">
           {launchData
             .filter(
               (launch) =>
@@ -99,7 +115,7 @@ const FrontPage = () => {
                   .includes(search.toLowerCase())
             )
             .map((launch) => (
-              <div key={launch.flight_number} className="card">
+              <div key={launch.flight_number} data-testid="cardtest"  className="card">
                 <img
                   src={launch.links.mission_patch_small}
                   alt={launch.mission_name}
